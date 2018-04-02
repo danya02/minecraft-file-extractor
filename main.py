@@ -51,7 +51,11 @@ while 1:
     try:
         o = os.path.normpath(os.path.expanduser(input("Output folder: ")))
         if not os.path.exists(o) or not os.path.isdir(o):
-            raise TypeError
+            if not os.path.exists(o):
+                input("The selected directory doesn't exist; create it? (RETURN for yes, ^C for no)> ")
+                os.makedirs(o)
+            else:
+                raise TypeError
         os.chdir(os.path.abspath(o))
         os.chdir(os.path.abspath(os.path.join(i, "assets", "objects")))
         break
